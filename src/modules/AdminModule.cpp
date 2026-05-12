@@ -86,7 +86,7 @@ bool AdminModule::handleReceivedProtobuf(const meshtastic_MeshPacket &mp, meshta
     if (messageIsResponse(r)) {
         LOG_DEBUG("Allow admin response message");
     } else if (mp.from == 0) {
-        if (config.security.is_managed) {
+        if (config.security.is_managed && !hasOpenEditTransaction) {
             LOG_INFO("Ignore local admin payload because is_managed");
             return handled;
         }
